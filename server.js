@@ -6,6 +6,8 @@ const expressValidator = require('express-validator');
 
 const app = express()
 
+const Post = require('./models/post');
+
 require('./controllers/posts.js')(app);
 require('./data/reddit-db');
 
@@ -19,7 +21,13 @@ app.use(expressValidator());
 
 
 app.get('/', (req, res) => {
-  res.render('home')
+    Post.find({})
+    .then(posts => {
+      res.render('posts-index', { posts });
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
 })
 
 app.get('/posts/new', (req, res) => {
