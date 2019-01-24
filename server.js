@@ -1,12 +1,16 @@
 const express = require('express')
 var exphbs = require('express-handlebars');
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser');
-const expressValidator = require('express-validator');
 
 const app = express()
 
 const Post = require('./models/post');
+
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 
 require('./controllers/posts.js')(app);
 require('./data/reddit-db');
@@ -14,20 +18,14 @@ require('./data/reddit-db');
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(expressValidator());
+
+
 
 
 app.get('/', (req, res) => {
-    Post.find({})
-    .then(posts => {
-      res.render('posts-index', { posts });
-    })
-    .catch(err => {
-      console.log(err.message);
-    });
+  res.render('posts-index')
+
 })
 
 app.get('/posts/new', (req, res) => {
