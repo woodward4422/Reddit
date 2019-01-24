@@ -24,8 +24,13 @@ app.set('view engine', 'handlebars');
 
 
 app.get('/', (req, res) => {
-  res.render('posts-index')
-
+  Post.find({})
+  .then(posts => {
+    res.render("posts-index", { posts });
+  })
+  .catch(err => {
+    console.log(err.message);
+  });
 })
 
 app.get('/posts/new', (req, res) => {
