@@ -12,5 +12,15 @@ module.exports = (app) => {
       })
     });
   
+    app.get("/posts/:id", function(req, res) {
+      // Query for the post to see if it exists in the DB
+      Post.findById(req.params.id)
+        .then(post => {
+          res.render("posts-show", { post });
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+    });
   };
   
