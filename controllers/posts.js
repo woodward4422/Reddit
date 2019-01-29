@@ -3,7 +3,6 @@ const Post = require('../models/post');
 module.exports = (app) => {
 
   app.post('/posts/new', (req, res) => {
-    console.log("In the post post")
     const post = new Post(req.body);
     console.log(req.body);
 
@@ -14,7 +13,6 @@ module.exports = (app) => {
   });
 
   app.get('/posts/new', (req, res) => {
-    console.log("In post new get request")
     res.render('posts-new')
   });
 
@@ -28,6 +26,20 @@ module.exports = (app) => {
       })
       .catch(err => {
         console.log(err.message);
+      });
+  });
+  // Shows the subreddit
+  app.get("/n/:subreddit", function (req, res) {
+    Post.find({
+        subreddit: req.params.subreddit
+      })
+      .then(posts => {
+        res.render("posts-index", {
+          posts
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
   });
 };
