@@ -23,6 +23,10 @@ const PostSchema = new Schema({
   subreddit: {
     type: String,
     required: true
+  },
+  subredditTwo: {
+    type: String,
+    required: false
   }
 });
 
