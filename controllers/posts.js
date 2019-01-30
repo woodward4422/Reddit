@@ -18,7 +18,7 @@ module.exports = (app) => {
 
   app.get("/posts/:id", function (req, res) {
     // Query for the post to see if it exists in the DB
-    Post.findById(req.params.id)
+    Post.findById(req.params.id).populate('comments')
       .then(post => {
         res.render("posts-show", {
           post

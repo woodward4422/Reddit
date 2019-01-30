@@ -27,7 +27,12 @@ const PostSchema = new Schema({
   subredditTwo: {
     type: String,
     required: false
-  }
+  },
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment'
+  }]
+
 });
 
 PostSchema.pre("save", function (next) {
