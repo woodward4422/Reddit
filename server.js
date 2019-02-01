@@ -1,6 +1,8 @@
 const express = require('express')
 var exphbs = require('express-handlebars');
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
+
 
 const app = express()
 
@@ -13,19 +15,20 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(expressValidator());
+app.use(cookieParser());
 
 require('./controllers/posts.js')(app);
 require('./controllers/comments.js')(app);
+require('./controllers/auth.js')(app);
 require('./data/reddit-db');
+require('dotenv').config();
+
+
 
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
-
-
-
-
 
 
 app.get('/', (req, res) => {
