@@ -32,7 +32,13 @@ module.exports = (app) => {
                     err: err
                 });
             })
-    })
+    });
+
+
+    app.get('/logout', (req, res) => {
+        res.clearCookie('nToken');
+        res.redirect('/');
+    });
 
 
 }
