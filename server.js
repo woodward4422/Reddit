@@ -1,7 +1,8 @@
 const express = require('express')
 var exphbs = require('express-handlebars');
 const mongoose = require('mongoose')
-const cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 
 const app = express()
