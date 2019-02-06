@@ -22,6 +22,7 @@ module.exports = (app) => {
           console.log(err.message);
         });
     } else {
+      console.log("This is bad")
       return res.status(401);
     }
   });
