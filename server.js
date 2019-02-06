@@ -7,6 +7,9 @@ const jwt = require('jsonwebtoken');
 
 const app = express()
 
+
+
+
 const Post = require('./models/post');
 
 const bodyParser = require('body-parser');
@@ -17,6 +20,22 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(expressValidator());
 app.use(cookieParser());
+
+var checkAuth = (req, res, next) => {
+  console.log("Checking authentication");
+  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+    req.user = null;
+  } else {
+    var token = req.cookies.nToken;
+    var decodedToken = jwt.decode(token, {
+      complete: true
+    }) || {};
+    req.user = decodedToken.payload;
+  }
+
+  next();
+};
+app.use(checkAuth);
 
 require('./controllers/posts.js')(app);
 require('./controllers/comments.js')(app);
@@ -33,10 +52,12 @@ app.set('view engine', 'handlebars');
 
 
 app.get('/', (req, res) => {
-  Post.find({})
+  var currentUser = req.user;
+  Post.find().populate('author')
     .then(posts => {
       res.render("posts-index", {
-        posts
+        posts,
+        currentUser
       });
     })
     .catch(err => {

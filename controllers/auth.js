@@ -4,6 +4,13 @@ const jwt = require('jsonwebtoken');
 
 
 module.exports = (app) => {
+
+
+
+
+
+
+
     app.get("/sign-up", (req, res) => {
         res.render("sign-up")
     });
@@ -87,6 +94,8 @@ module.exports = (app) => {
                 console.log(err);
             });
     });
+
+
 
 
 

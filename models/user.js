@@ -16,7 +16,12 @@ const UserSchema = new Schema({
     username: {
         type: String,
         required: true
-    }
+    },
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: "Post"
+    }]
+
 });
 
 UserSchema.pre("save", function (next) {
