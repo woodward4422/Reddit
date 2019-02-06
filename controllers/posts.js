@@ -35,8 +35,14 @@ module.exports = (app) => {
 
   app.get("/posts/:id", function (req, res) {
     var currentUser = req.user;
-    // Query for the post to see if it exists in the DB
-    Post.findById(req.params.id).populate('comments').populate('author')
+    // LOOK UP THE POST
+
+    Post.findById(req.params.id).populate({
+        path: 'comments',
+        populate: {
+          path: 'author'
+        }
+      }).populate('author')
       .then(post => {
         res.render("posts-show", {
           post,
