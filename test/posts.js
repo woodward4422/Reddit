@@ -56,10 +56,7 @@ describe('Posts', function () {
 
     });
     after(function () {
-        Post.remove(newPost, function () {
-            console.log("In the remove")
-        });
-        console.log("In the after")
+        Post.remove(newPost, function () {});
     });
 
 });
