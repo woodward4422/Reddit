@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 var checkAuth = (req, res, next) => {
   console.log("Checking authentication");
-  if (req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
     console.log(req.cookies.nToken)
     req.user = null;
   } else {

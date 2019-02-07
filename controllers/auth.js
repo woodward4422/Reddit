@@ -18,6 +18,7 @@ module.exports = (app) => {
 
     app.post("/sign-up", (req, res) => {
         const user = User(req.body)
+        console.log(req.body)
 
         user
             .save()
