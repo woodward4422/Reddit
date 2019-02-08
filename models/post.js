@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Populate = require("../util/autopopulate");
 
 const PostSchema = new Schema({
   createdAt: {
@@ -39,6 +40,10 @@ const PostSchema = new Schema({
   }
 
 });
+
+PostSchema
+  .pre('findOne', Populate('author'))
+  .pre('find', Populate('author'))
 
 PostSchema.pre("save", function (next) {
   // SET createdAt AND updatedAt
