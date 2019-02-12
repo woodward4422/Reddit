@@ -41,6 +41,7 @@ app.use(checkAuth);
 require('./controllers/posts.js')(app);
 require('./controllers/comments.js')(app);
 require('./controllers/auth.js')(app);
+require('./controllers/replies.js')(app);
 require('./data/reddit-db');
 require('dotenv').config();
 
