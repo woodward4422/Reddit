@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(expressValidator());
 app.use(cookieParser());
+app.use(express.static('public'));
 
 var checkAuth = (req, res, next) => {
   console.log("Checking authentication");
